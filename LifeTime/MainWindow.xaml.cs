@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace LifeTime
 {
@@ -38,7 +39,7 @@ namespace LifeTime
             while(true){
                 try
                 { 
-                    Dispatcher.Invoke(() => DateTimeNow.Content = DateTime.Now.ToString());
+                    Dispatcher.Invoke(() => DateTimeNow.Content = "Time now : "+DateTime.Now.ToString());
                     using (PlanneryDayContext db = new PlanneryDayContext())
                     {
                       
@@ -50,7 +51,7 @@ namespace LifeTime
                                 Dispatcher.Invoke(() =>
                                 {
                                     popup2.IsOpen = true;
-
+                                    PopUpTask.Text = $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.";
                                 });
                             }
                         }
@@ -82,7 +83,7 @@ namespace LifeTime
                 { if (p.Time.ToShortDateString() == DateTime.Now.ToShortDateString()) {
                         Dispatcher.Invoke(() =>
                         {
-                            TaskToday.Items.Add(p.Header);
+                            TaskToday.Items.Add($"Header: {p.Header}; Description: {p.Description}; at time:{p.Time} ");
 
 
 
@@ -102,34 +103,62 @@ namespace LifeTime
         {
             string Headertask = "";
             string descriptiontask = "";
-
+           Regex regex = new Regex("^[0-9]{1,2}$");
 
             DateTime dateTime = new DateTime();
-             Headertask = Header.Text;
-            double shour = 0;
-            double sminutes = 0;
-        
-            
+
+
+            if (Header.Text == null||Header.Text =="")
+            {
+
+                MessageBox.Show("You don`t put header yours Task");
+            }
+
+            else if (TimeHours.Text == null || TimeHours.Text == "")
+            {
+
+                MessageBox.Show("You don`t put hours yours Task");
+            } else if (TimeMinutes.Text == null || TimeMinutes.Text == "")
+            {
+
+                MessageBox.Show("You don`t put header yours Task");
+            }else if (!regex.IsMatch(TimeHours.Text)&&!regex.IsMatch(TimeMinutes.Text))
+            {
+                MessageBox.Show("You wrote wrong symbols,pls put hours and minutes");
+            }
+            else
+            { 
+                Headertask = Header.Text;
+                double shour = 0;
+                double sminutes = 0;
                 shour = double.Parse(TimeHours.Text);
                 sminutes = double.Parse(TimeMinutes.Text);
-          
+                if (shour < 0 || shour > 23)
+                {
+                    MessageBox.Show("Please put right number hours. from 0 to 23 hours");
+                }
+                else if (sminutes < 0 || sminutes > 59)
+                {
+                    MessageBox.Show("Please put right number minutes. from 0 to 59 hours");
+                }
+                else
+                {
+                    descriptiontask = Description.Text;
+                    dateTime = (DateTime)DatePi.SelectedDate;
+                    dateTime = dateTime.AddHours(shour);
+                    dateTime = dateTime.AddMinutes(sminutes);
+                    PlanneryDay PD = new PlanneryDay() { Header = Headertask, Description = descriptiontask };
+                    PD.Time = dateTime;
+                    Task task = new Task(() => Add_Plan(PD));
+                    task.Start();
+                    popup1.IsOpen = true;
+                    Header.Text = "Название задачи";
+                    Description.Text = "Описание";
+                    DatePi.SelectedDate = null;
+                }
+            }
 
-        
-        
-           descriptiontask = Description.Text;
-           dateTime = (DateTime)DatePi.SelectedDate;
-            dateTime = dateTime.AddHours(shour);
-            dateTime = dateTime.AddMinutes(sminutes);
-
-
-            PlanneryDay PD = new PlanneryDay() { Header = Headertask, Description = descriptiontask };
-            PD.Time = dateTime;
-            Task task = new Task(()=>Add_Plan(PD));
-            task.Start();
-       popup1.IsOpen = true;
-            Header.Text = null;
-            Description.Text = null;
-         DatePi.SelectedDate = null;
+           
 
         }
         private void Add_Plan(PlanneryDay PD)
@@ -164,5 +193,19 @@ namespace LifeTime
         {
             Description.Text = null;
         }
+
+        private void TimeHours_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TimeHours.Text = null;
+        }
+
+      
+
+        private void TimeMinutes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TimeMinutes.Text = null;
+        }
+
+      
     }
 }
