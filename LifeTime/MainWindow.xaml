@@ -1,0 +1,40 @@
+﻿<Window x:Class="LifeTime.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LifeTime"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Label  Content="Label" HorizontalAlignment="Left" Margin="224,0,0,294" VerticalAlignment="Bottom" x:Name="DateTimeNow"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="68,18,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="323,91,0,0" TextWrapping="Wrap" Text="Название задачи" VerticalAlignment="Top" Width="120" x:Name="Header" MouseDoubleClick="Header_MouseDoubleClick"/>
+        <TextBox HorizontalAlignment="Left" Height="132" Margin="323,130,0,0" TextWrapping="Wrap" Text="Описание" VerticalAlignment="Top" Width="173" x:Name="Description" UndoLimit="1000" MouseDoubleClick="Description_MouseDoubleClick"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="368,267,0,0" VerticalAlignment="Top" Width="75" x:Name="AddTask" Click="AddTask_Click"/>
+        <DatePicker HorizontalAlignment="Left" Margin="323,51,0,0" VerticalAlignment="Top" x:Name="DatePi" SelectedDateFormat="Short"/>
+        <ListView x:Name="TaskToday" HorizontalAlignment="Left" Height="213" VerticalAlignment="Top" Width="202" Margin="10,51,0,0" Loaded="TaskToday_Loaded">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Popup x:Name="popup1" StaysOpen="False" Placement="Mouse" MaxWidth="180"
+         AllowsTransparency="True"  >
+            <TextBlock TextWrapping="Wrap" Width="187" Background="LightPink" Opacity="0.8" Height="52" LineHeight="10" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold" >
+            Задание успешно добавлено
+            </TextBlock>
+        </Popup>
+        <Popup x:Name="popup2" StaysOpen="False" Placement="Mouse" MaxWidth="180"
+         AllowsTransparency="True"  >
+            <TextBlock TextWrapping="Wrap" Width="179" Background="LightPink" Opacity="0.8" Height="52" LineHeight="10" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold" RenderTransformOrigin="0,0.5" Margin="0" >
+           проснись и пой,ты кое-что забыл :
+
+            </TextBlock>
+        </Popup>
+        <DockPanel HorizontalAlignment="Left" Height="100" LastChildFill="False" VerticalAlignment="Top" Width="100" Margin="0,6,0,0"/>
+        <TextBox x:Name="TimeHours" HorizontalAlignment="Left" Height="23" Margin="443,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="23" RenderTransformOrigin="0.435,-0.13" UndoLimit="0"/>
+        <TextBox x:Name="TimeMinutes" HorizontalAlignment="Left" Height="23" Margin="482,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" RenderTransformOrigin="1.16,1.696" UndoLimit="2"/>
+    </Grid>
+</Window>
