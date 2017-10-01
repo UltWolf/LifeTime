@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Label  Content="Label" HorizontalAlignment="Left" Margin="183,0,0,274" VerticalAlignment="Bottom" x:Name="DateTimeNow" Width="240"/>
+        <Label HorizontalAlignment="Left" Margin="183,0,0,274" VerticalAlignment="Bottom" x:Name="DateTimeNow" Width="240"/>
         <Label Content="Todays task" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="323,91,0,0" TextWrapping="Wrap" Text="Название задачи" VerticalAlignment="Top" Width="120" x:Name="Header" MouseDoubleClick="Header_MouseDoubleClick"/>
         <TextBox HorizontalAlignment="Left" Height="132" Margin="323,130,0,0" TextWrapping="Wrap" Text="Описание" VerticalAlignment="Top" Width="173" x:Name="Description" UndoLimit="1000" MouseDoubleClick="Description_MouseDoubleClick"/>
@@ -28,7 +28,7 @@
         </Popup>
         <Popup x:Name="popup2" StaysOpen="False" Placement="Mouse" MaxWidth="180"
          AllowsTransparency="True"  >
-            <TextBlock x:Name="PopUpTask" TextWrapping="Wrap" Width="179" Background="LightPink" Opacity="0.8" Height="52" LineHeight="10" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold" RenderTransformOrigin="0,0.5" Margin="0" >
+            <TextBlock x:Name="PopUpTask" TextWrapping="Wrap" Width="179" Background="LightPink" Opacity="0.8" Height="90" LineHeight="10" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold" RenderTransformOrigin="0,0.5" Margin="0" MouseLeftButtonDown="PopUpTask_MouseLeftButtonDown" >
 
 
             </TextBlock>
@@ -36,5 +36,6 @@
         <DockPanel HorizontalAlignment="Left" Height="100" LastChildFill="False" VerticalAlignment="Top" Width="100" Margin="0,6,0,0"/>
         <TextBox x:Name="TimeHours" HorizontalAlignment="Left" Height="23" Margin="443,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="23" RenderTransformOrigin="0.435,-0.13" UndoLimit="0" MouseDoubleClick="TimeHours_MouseDoubleClick"/>
         <TextBox x:Name="TimeMinutes" HorizontalAlignment="Left" Height="23" Margin="482,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" RenderTransformOrigin="1.16,1.696" UndoLimit="2" MouseDoubleClick="TimeMinutes_MouseDoubleClick"/>
+        <MediaElement Margin="277,114,140,106"/>
     </Grid>
 </Window>

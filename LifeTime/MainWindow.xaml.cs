@@ -26,9 +26,10 @@ namespace LifeTime
     ///   List<Book> result 
     public partial class MainWindow : Window
     {
+     
         public MainWindow()
         {
-            Console.WriteLine(Thread.CurrentThread.Name);
+
             InitializeComponent();
          
             Task ResultTime = new Task(MethodResultTime);
@@ -48,11 +49,19 @@ namespace LifeTime
                         {
                             if (p.Time.ToShortTimeString() == DateTime.Now.ToShortTimeString())
                             {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    popup2.IsOpen = true;
-                                    PopUpTask.Text = $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.";
-                                });
+                                if (p.Done ==false ) {
+                                    p.Done = true;
+                                    Console.WriteLine(p.Done);
+
+                                    MediaPlayer sound = new MediaPlayer();
+                                    Uri uri = new Uri(@"E:\ding.mp3");
+                                    sound.Open(uri);
+                                    sound.Play();
+                               MessageBox.Show( $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.");
+
+                                        Console.WriteLine(p.Done);
+                                
+                                }
                             }
                         }
                     }
@@ -167,8 +176,9 @@ namespace LifeTime
             {
              
                 db.PlanneryDays.Add(PD);
-                ViewTask();
                 db.SaveChanges();
+                ViewTask();
+               
             }
 
             
@@ -206,6 +216,9 @@ namespace LifeTime
             TimeMinutes.Text = null;
         }
 
-      
+        private void PopUpTask_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            popup2.IsOpen = false;
+        }
     }
 }
