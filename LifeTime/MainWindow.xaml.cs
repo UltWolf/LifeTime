@@ -39,8 +39,8 @@ namespace LifeTime
         {
             while(true){
                 try
-                { 
-                    Dispatcher.Invoke(() => DateTimeNow.Content = "Time now : "+DateTime.Now.ToString());
+                { String timeNow = DateTime.Now.ToString().ToUpper();
+                    Dispatcher.Invoke(() => DateTimeNow.Text = ("Time now : "+timeNow));
                     using (PlanneryDayContext db = new PlanneryDayContext())
                     {
                       
@@ -60,12 +60,15 @@ namespace LifeTime
                                MessageBox.Show( $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.");
 
                                         Console.WriteLine(p.Done);
-                                
+                               
                                 }
                             }
+
                         }
+
+                        db.SaveChanges();
                     }
-                    Task.Delay(60000);
+                
                 }
                 catch (TaskCanceledException)
                 {
@@ -92,10 +95,7 @@ namespace LifeTime
                 { if (p.Time.ToShortDateString() == DateTime.Now.ToShortDateString()) {
                         Dispatcher.Invoke(() =>
                         {
-                            TaskToday.Items.Add($"Header: {p.Header}; Description: {p.Description}; at time:{p.Time} ");
-
-
-
+                            TaskToday.Items.Add(p.Header);
                         });
                     }
                 }
@@ -116,7 +116,7 @@ namespace LifeTime
 
             DateTime dateTime = new DateTime();
 
-
+            
             if (Header.Text == null||Header.Text =="")
             {
 
@@ -220,5 +220,6 @@ namespace LifeTime
         {
             popup2.IsOpen = false;
         }
+       
     }
 }
