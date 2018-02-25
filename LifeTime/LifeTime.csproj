@@ -63,7 +63,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Migrations\201802231154380_InitialCreate.cs" />
+    <Compile Include="Migrations\201802231154380_InitialCreate.Designer.cs">
+      <DependentUpon>201802231154380_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802251554595_MVVM.cs" />
+    <Compile Include="Migrations\201802251554595_MVVM.Designer.cs">
+      <DependentUpon>201802251554595_MVVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ViewModels\MainViewModelView.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -71,13 +82,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlanneryDay.cs" />
+    <Compile Include="Models\PlanneryDay.cs" />
     <Compile Include="PlanneryDayEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -93,6 +104,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201802231154380_InitialCreate.resx">
+      <DependentUpon>201802231154380_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802251554595_MVVM.resx">
+      <DependentUpon>201802251554595_MVVM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -114,5 +131,6 @@
   <ItemGroup>
     <Resource Include="src\favicon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

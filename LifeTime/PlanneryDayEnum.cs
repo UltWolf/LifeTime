@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LifeTime;
 using System.Collections;
+using LifeTime.Models;
 
-    class PlanneryEnum : IEnumerable
+class PlanneryEnum : IEnumerable
 {
     PlanneryDay[] _planneryDay;
     public PlanneryEnum(PlanneryDay[] pArray)
