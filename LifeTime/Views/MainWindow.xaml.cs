@@ -27,80 +27,68 @@ namespace LifeTime.Views
     ///   List<Book> result 
     public partial class MainWindow : Window
     {
-     
-        public MainWindow()
+      
+        public MainWindow(string username)
         {
-            
+          
             InitializeComponent();
-            DataContext = new MainViewModelView();
+             
+                var vm = new MainViewModelView();
+            vm.Username = username;
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = new Action(this.Close);
+            }
+            DataContext = vm;
             Task ResultTime = new Task(MethodResultTime);
             ResultTime.Start();
+            
         }
         public void MethodResultTime()
         {
-            while(true){
-                try
-                { String timeNow = DateTime.Now.ToString().ToUpper();
-                    Dispatcher.Invoke(() => DateTimeNow.Text = ("Time now : "+timeNow));
-                    using (PlanneryDayContext db = new PlanneryDayContext())
-                    {
+            //while(true){
+            //    try
+            //    { String timeNow = DateTime.Now.ToString().ToUpper();
+            //        Dispatcher.Invoke(() => DateTimeNow.Text = ("Time now : "+timeNow));
+            //        using (PlanneryDayContext db = new PlanneryDayContext())
+            //        {
                       
-                        var plan = db.PlanneryDays;
-                        foreach (var p in plan)
-                        {
-                            if (p.Time.ToShortTimeString() == DateTime.Now.ToShortTimeString())
-                            {
-                                if (p.Done ==false ) {
-                                    p.Done = true;
-                                    Console.WriteLine(p.Done);
+            //            var plan = db.PlanneryDays;
+            //            foreach (var p in plan)
+            //            {
+            //                if (p.Time.ToShortTimeString() == DateTime.Now.ToShortTimeString())
+            //                {
+            //                    if (p.Done ==false ) {
+            //                        p.Done = true;
+            //                        Console.WriteLine(p.Done);
 
-                                    MediaPlayer sound = new MediaPlayer();
-                                    Uri uri = new Uri(@"E:\ding.mp3");
-                                    sound.Open(uri);
-                                    sound.Play();
-                               MessageBox.Show( $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.");
+            //                        MediaPlayer sound = new MediaPlayer();
+            //                        Uri uri = new Uri(@"E:\ding.mp3");
+            //                        sound.Open(uri);
+            //                        sound.Play();
+            //                   MessageBox.Show( $"Hey, did u forget about {p.Header}  u mast do something like a {p.Description},Good luck,baddy.");
 
-                                        Console.WriteLine(p.Done);
-                                }
-                            }
+            //                            Console.WriteLine(p.Done);
+            //                    }
+            //                }
 
-                        }
+            //            }
 
-                        db.SaveChanges();
-                    }
+            //            db.SaveChanges();
+            //        }
                 
-                }
-                catch (TaskCanceledException)
-                {
+            //    }
+            //    catch (TaskCanceledException)
+            //    {
 
-                }
+            //    }
                
-            }
+            //}
 
-          
+            
         }
 
 
-
-        private void Header_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Header.Text = null;
-        }
-
-        private void Description_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Description.Text = null;
-        }
-
-        private void TimeHours_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TimeHours.Text = null;
-        }
-
-        private void TimeMinutes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TimeMinutes.Text = null;
-        }
 
         private void PopUpTask_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

@@ -37,13 +37,14 @@ namespace LifeTime.Models
         [Required]
         public DateTime Time { get; set; }
         [Required]
-        public string Header { get { return header; }  set { header = value; OnPropertyChanged("Title"); } }
+        public string Header{ get { return header;}  set { header = value; OnPropertyChanged("Header"); } }
         public string Description { get { return description; } set{ description = value; OnPropertyChanged("Description"); } }
+        public User User { get; set; }
         public bool Done { get; set; }
         [NotMapped]
-        public string TimeHours { get { return hours; } set { hours=value; OnPropertyChanged("hours"); } }
+        public string TimeHours { get { return hours; } set { hours=value; OnPropertyChanged("TimeHours"); } }
         [NotMapped]
-        public string TimeMinutes { get { return minutes; } set { minutes = value; OnPropertyChanged("minutes"); } }
+        public string TimeMinutes { get { return minutes; } set { minutes = value; OnPropertyChanged("TimeMinutes"); } }
         #endregion
         #region getInformation
         public static ObservableCollection<PlanneryDay> GetTasks()

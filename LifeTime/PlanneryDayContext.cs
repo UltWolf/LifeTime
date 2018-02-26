@@ -14,5 +14,6 @@ namespace LifeTime.Properties
         public PlanneryDayContext():base("DbConnection")
         { }
         public DbSet<PlanneryDay> PlanneryDays { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

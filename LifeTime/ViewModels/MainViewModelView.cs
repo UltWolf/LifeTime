@@ -1,5 +1,6 @@
 ﻿
 using LifeTime.Models;
+using LifeTime.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,13 +13,23 @@ using System.Windows.Input;
 
 namespace LifeTime.ViewModels
 {
-    class MainViewModelView:PlanneryDay,INotifyPropertyChanged
+    class MainViewModelView : PlanneryDay, INotifyPropertyChanged
     {
         #region properties and parametres
         PlanneryDay[] tasks;
+        private string _username;
+        public string Username { get { return _username; } set { _username = value; OnPropertyChanged("Username"); } }
         public ObservableCollection<PlanneryDay> Tasks { get; private set; }
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
+        public ICommand HeaderEmptyCommand{get;private set; }
+        public ICommand DescrEmptyCommand { get; private set; }
+        public ICommand LogoutCommand { get; private set; }
+        public Action CloseAction { get; set; }
+        //TH TimeHours
+        public ICommand THEmptyCommand { get; private set; }
+        //TM TimeMinutes
+        public ICommand TMEmptyCommand { get; private set; }
         public PlanneryDay Task
         {
             get => task;
@@ -35,6 +46,57 @@ namespace LifeTime.ViewModels
             Refresh();
             AddCommand = new RelayCommand(AddTask, CanAddTask);
             RemoveCommand = new RelayCommand(RemoveTask, CanRemoveTask);
+            HeaderEmptyCommand = new RelayCommand(ClearInputHeader);
+            DescrEmptyCommand = new RelayCommand(ClearInputDescr);
+            THEmptyCommand = new RelayCommand(ClearInputTH);
+            TMEmptyCommand = new RelayCommand(ClearInputTM);
+            LogoutCommand = new RelayCommand(LogOut);
+        }
+        private void LogOut(object obj)
+        {
+            var loginView = new Login();
+            loginView.Show();
+            CloseAction();
+
+        }
+
+
+        #endregion
+        #region no optimization clear heading
+        public void ClearInputHeader(object obj)
+        {
+            if (obj as string != null)
+            {
+                
+                Header = String.Empty;
+                OnPropertyChanged("Header");
+            }
+        }
+        public void ClearInputDescr(object obj)
+        {
+            if (obj as string != null)
+            {
+               
+                Description = String.Empty;
+                OnPropertyChanged("Description");
+            }
+        }
+        public void ClearInputTH(object obj)
+        {
+            if (obj as string != null)
+            {
+          
+                TimeHours = String.Empty;
+                OnPropertyChanged("TimeHours");
+            }
+        }
+        public void ClearInputTM(object obj)
+        {
+            if (obj as string != null)
+            {
+                TimeMinutes = String.Empty;
+                OnPropertyChanged("TimeMinutes");
+            }
         }
         #endregion
         #region AddingTask
@@ -91,7 +153,7 @@ namespace LifeTime.ViewModels
         #region Refreshtask
         public void Refresh()
         {
-            Tasks = new ObservableCollection<PlanneryDay>(GetTasks());
+            Tasks = new ObservableCollection<PlanneryDay>(/*GetTasks()*/);
         }
         #endregion
     }

@@ -1,0 +1,39 @@
+﻿<Window x:Class="LifeTime.Views.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LifeTime.Views"
+        mc:Ignorable="d"
+        Title="Registration" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Text="{Binding Path= Username}" TextAlignment = "Center" VerticalAlignment="Center"  HorizontalAlignment="Center" Name="Username" BorderBrush="Yellow"  Width="151" Height="20px" Foreground="Black" Margin="70,57,71,57"></TextBox>
+        <TextBox Grid.Row="0" Text="{Binding Path= Password}" Margin="70,87,71,27" TextAlignment = "Center" VerticalAlignment="Center"  HorizontalAlignment="Center" Name="Password" BorderBrush="Yellow"  Width="151" Height="20px" Foreground="Black"></TextBox>
+        <Button
+            x:Name="Register"
+            Grid.Row="1"
+            Width="108"
+            Height="28"
+            Margin="95,10,0,97"
+            HorizontalAlignment="left"
+            VerticalAlignment="Center"
+            BorderBrush="Black"
+            Command="{Binding Path=RegisterCommand}"
+            Content="Register"
+            Foreground="#FFFDEEFB">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.203" Color="#FF6B0843" />
+                    <GradientStop Offset="1" Color="#FF451D98" />
+                    <GradientStop Offset="1" Color="#FF3F3F46" />
+                    <GradientStop Offset="0.933" Color="#FF360430" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+       
+    </Grid>
+</Window>
